@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Amazing Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./asset/img/icono.ico">
+    <link rel="stylesheet" href="./asset/css/style.css">
+</head>
+
+<body>
+    <div id="app">
+        <img src="./asset/img/fire1.png" alt="fire" class="fire1">
+        <img src="./asset/img/guitar2.png" alt="guitar2" class="guitar2">
+        <div id="inner">
+            <div class="top1_wrapper">
+                <div class="container">
+                    <header>
+                        <h1 class="titulo">Home</h1>
+                        <div class="logo_wrapper">
+                            <a href="index.html" class="logo">
+                                <img src="./asset/img/logo_amazing_events.png" alt="logo amazing events"
+                                    style="width:60%">
+                            </a>
+                        </div>
+                    </header>
+                </div>
+            </div>
+            <!--  NAVEGACION  -->
+            <nav class="navbar navbar-expand-lg bg-body-tertiary justify-content-center">
+                <div class="container" id="nav">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="container offset-md-2 p-3">
+                        <div class="collapse navbar-collapse   m-0" id="navbarSupportedContent">
+                            <ul class="navbar-nav  mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./upcoming_events.html">Upcoming Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./past_events.html">Past Events</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./contact.html">Contact</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="./stats.html">Stats</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!--  PREVIOUS - NEXT  -->
+            <div class="botones d-flex justify-content-center">
+                <button onClick="previous()" id="previous-page">
+                    <img src="./asset/img/previous.png" alt="previous" id="recorrer" width="50">
+                </button>
+                <h2 id="actualpage">HOME</h2>
+                <button onClick="next()" id="next-page">
+                    <img src="./asset/img/next.png" alt="next" id="recorrer2" width="50">
+                </button>
+            </div>
+        </div>
+
+        <!-- buscador por catregoria  -->
+        <main>
+            <h2 class="d-flex justify-content-center">Event Search Engine</h2>
+            <div class="container d-flex  justify-content-end p-3" id="buscador">
+               
+                {{superFiltro}} 
+                <div v-for="categoria of categorias" class="form-check form-switch">
+                    <input v-model="categoriasSeleccionadas" class="form-check-input" type="checkbox" role="switch" :id="categoria" :value="categoria">
+                    <label class="form-check-label" :for="categoria">{{categoria}}</label>
+                </div>
+
+                <div class="container d-flex-end col-lg-4 col-md-12" id="search">
+                    <form class="d-flex" role="search">
+                        <input v-model="texto" class="form-control " type="text">
+                        
+                    </form>
+                </div>
+               
+            </div>
+            <p v-if="!eventosAMostrar.length" class="display-1 fw-bolder text-white d-flex justify-content-center" id="no-events">No Event
+                Matches</p>
+            <!-- cards de fotos  -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-4" id="cards-container">
+               
+                <!-- ========== Aqui va las Cards============= -->
+                <div v-for="evento of eventosAMostrar " class="card" id="card-body">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <div class="front">
+                      <img :src="evento.image" alt="evento.image">
+                      <h2>{{evento.name}}</h2>
+                    </div>
+                    <div class="back">
+                      <date>Date: {{evento.date}}</date>
+                      <price>Price:$ {{evento.price}}</price>
+                      <category>Category: {{evento.category}}</category>
+                      <place>Place: {{evento.place}}</place>
+                      <description>Description: {{evento.description}}</description>
+                      <button class="book-now-btn" @click="verDetalles(evento.id)" >More Info</button>
+                     
+                    </div>
+                  </div>
+            </div>
+        </main>
+    </div>
+    <!--  footer   -->
+    <footer class="container  d-flex-columns gap-3 justify-content-center p-3">
+        <!-- imagen logo dentro del footer  -->
+        <div class="div container d-flex" id="imagen-footer">
+            <img src="./asset/img/fire2.png" alt="fire" class="fire2">
+            <img src="./asset/img/microfono.png" alt="microfono con fuego" class="microfono">
+            <img src="./asset/img/humo1.png" alt="humo" class="humo1">
+        </div>
+        <div class="logo_footer">
+            <a href="index.html" class="logo">
+                <img src="./asset/img/amazingevents.png" style="width:20%" alt="logo amazing events" id="logo2">
+            </a>
+        </div>
+        <!-- logo de redes sociales  -->
+        <ul class="social_icon">
+            <li><a href="https://es-es.facebook.com/" target="_blank"><img src="./asset/img/social_ic1.png"
+                        title="Facebook"></a></li>
+            <li><a href="https://twitter.com/" target="_blank"><img src="./asset/img/social_ic3.png"
+                        title="Twitter"></a></li>
+            <li><a href="https://www.whatsapp.com/?lang=es" target="_blank"><img src="./asset/img/whatsapp.png"
+                        width="32" title="WhatsApp"></a></li>
+        </ul>
+        <!--  menu navegacion dentro del footer  -->
+        <ul class="menu">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./upcoming_events.html">Upcoming Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./past_events.html">Past Events</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./contact.html">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./stats.html">Stats</a>
+            </li>
+        </ul>
+        <p>© Argentina Programa 2023 | FrontEnd | Gerardo Medina</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+
+    
+<script src="https://unpkg.com/vue@3.2.29/dist/vue.global.js"></script>
+<script src="./main.js"></script>
+<script  src="./global.js"></script>
+</body>
+
+</html>
